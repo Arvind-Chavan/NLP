@@ -1,0 +1,353 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled13.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyNInAkeav4g6zdxUNAoTc2a",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Arvind-Chavan/NLP/blob/master/pandas%20practice\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Q0RqL_33jSdQ",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 85
+        },
+        "outputId": "c1946977-374a-474c-8ab2-1b7fe9276908"
+      },
+      "source": [
+        "import pandas as pd\n",
+        "poke=pd.read_csv('/content/sample_data/california_housing_test.csv')\n",
+        "#print(poke.head(5))\n",
+        "print(poke.columns)"
+      ],
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Index(['longitude', 'latitude', 'housing_median_age', 'total_rooms',\n",
+            "       'total_bedrooms', 'population', 'households', 'median_income',\n",
+            "       'median_house_value'],\n",
+            "      dtype='object')\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "FN9Utb6cjqF8",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#poke['total_rooms']\n",
+        "#poke['total_rooms'][0:5]\n",
+        "#poke[['total_rooms','total_bedrooms']][0:5] #accesing by col names\n",
+        "#poke.iloc[1:4] #accesing by index\n",
+        "#poke.iloc[2,3] # 2nd row and 3 col data\n",
+        "\n",
+        "#for index, row in poke.iterrows():\n",
+        " # print(index,row)\n",
+        "\n",
+        "poke.loc[poke['total_rooms']==500]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Bc_eIFHcq7zu",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "poke.describe() #will give summary"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9Sw2tUSyrO57",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#sorting\n",
+        "#poke.sort_values('total_bedrooms',ascending=False).head(2)\n",
+        "poke.sort_values(['total_bedrooms','latitude'],ascending=[1,0]) # ascending=[1,0] first col ascending and 2nd col decending"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "m6qpeBvC2gcO",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 193
+        },
+        "outputId": "d4ec395a-e88e-4185-9ce8-bef4dcc7187b"
+      },
+      "source": [
+        "poke['tot_lat_lon']=poke['latitude']+poke['longitude']\n",
+        "poke.head(4)"
+      ],
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>longitude</th>\n",
+              "      <th>latitude</th>\n",
+              "      <th>housing_median_age</th>\n",
+              "      <th>total_rooms</th>\n",
+              "      <th>total_bedrooms</th>\n",
+              "      <th>population</th>\n",
+              "      <th>households</th>\n",
+              "      <th>median_income</th>\n",
+              "      <th>median_house_value</th>\n",
+              "      <th>tot_lat_lon</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>-122.05</td>\n",
+              "      <td>37.37</td>\n",
+              "      <td>27.0</td>\n",
+              "      <td>3885.0</td>\n",
+              "      <td>661.0</td>\n",
+              "      <td>1537.0</td>\n",
+              "      <td>606.0</td>\n",
+              "      <td>6.6085</td>\n",
+              "      <td>344700.0</td>\n",
+              "      <td>-84.68</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>-118.30</td>\n",
+              "      <td>34.26</td>\n",
+              "      <td>43.0</td>\n",
+              "      <td>1510.0</td>\n",
+              "      <td>310.0</td>\n",
+              "      <td>809.0</td>\n",
+              "      <td>277.0</td>\n",
+              "      <td>3.5990</td>\n",
+              "      <td>176500.0</td>\n",
+              "      <td>-84.04</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>-117.81</td>\n",
+              "      <td>33.78</td>\n",
+              "      <td>27.0</td>\n",
+              "      <td>3589.0</td>\n",
+              "      <td>507.0</td>\n",
+              "      <td>1484.0</td>\n",
+              "      <td>495.0</td>\n",
+              "      <td>5.7934</td>\n",
+              "      <td>270500.0</td>\n",
+              "      <td>-84.03</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>-118.36</td>\n",
+              "      <td>33.82</td>\n",
+              "      <td>28.0</td>\n",
+              "      <td>67.0</td>\n",
+              "      <td>15.0</td>\n",
+              "      <td>49.0</td>\n",
+              "      <td>11.0</td>\n",
+              "      <td>6.1359</td>\n",
+              "      <td>330000.0</td>\n",
+              "      <td>-84.54</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "   longitude  latitude  ...  median_house_value  tot_lat_lon\n",
+              "0    -122.05     37.37  ...            344700.0       -84.68\n",
+              "1    -118.30     34.26  ...            176500.0       -84.04\n",
+              "2    -117.81     33.78  ...            270500.0       -84.03\n",
+              "3    -118.36     33.82  ...            330000.0       -84.54\n",
+              "\n",
+              "[4 rows x 10 columns]"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 32
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "JJRJHy_X4XOo",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#droping col\n",
+        "poke=poke.drop(columns=['tot_lat_lon'])"
+      ],
+      "execution_count": 35,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Ajt355VX5T0S",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#sum using iloc\n",
+        "poke['total']=poke.iloc[:,0:3].sum(axis=1) # [:,0:3] all rows and 0 to 3 col, axis=1 means horizonatal"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "qpfUA9B06fgp",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "poke.to_csv('mod_poke.csv',index=False)"
+      ],
+      "execution_count": 42,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "4OdLOVlp_68q",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#data filtering\n",
+        "#poke.loc[(poke['housing_median_age']>100) & (poke['total_rooms']>20)]\n",
+        "poke.loc[poke['total_bedrooms'].str.contains('23')] #str filtering\n",
+        "poke.loc[~poke['total_bedrooms'].str.contains('23')] # str filtering with not contain condition"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "TXlAqOC_DE7A",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#condtional changes\n",
+        "\n",
+        "poke.loc[poke['total_rooms']>100,'total_rooms'] ='greater'\n",
+        "#modifying multiple values\n",
+        "poke.loc[poke['total_rooms']>100,['total_rooms','total_bedrooms']] =['greater','high']"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "WRgweCoFWgSI",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 697
+        },
+        "outputId": "4b5b57bf-4c04-49a7-cd9a-bbcdd2fbad4e"
+      },
+      "source": [
+        "#group by\n",
+        "\n",
+        "poke.groupby(['total_rooms']).sum()['sum']"
+      ],
+      "execution_count": 62,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "KeyError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+            "\u001b[0;32m/usr/local/lib/python3.6/dist-packages/pandas/core/indexes/base.py\u001b[0m in \u001b[0;36mget_loc\u001b[0;34m(self, key, method, tolerance)\u001b[0m\n\u001b[1;32m   2645\u001b[0m             \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2646\u001b[0;31m                 \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_engine\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2647\u001b[0m             \u001b[0;32mexcept\u001b[0m \u001b[0mKeyError\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/index.pyx\u001b[0m in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/index.pyx\u001b[0m in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/hashtable_class_helper.pxi\u001b[0m in \u001b[0;36mpandas._libs.hashtable.PyObjectHashTable.get_item\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/hashtable_class_helper.pxi\u001b[0m in \u001b[0;36mpandas._libs.hashtable.PyObjectHashTable.get_item\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;31mKeyError\u001b[0m: 'sum'",
+            "\nDuring handling of the above exception, another exception occurred:\n",
+            "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-62-8da350c0b62d>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;31m#group by\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0mpoke\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mgroupby\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'total_rooms'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msum\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'sum'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;32m/usr/local/lib/python3.6/dist-packages/pandas/core/frame.py\u001b[0m in \u001b[0;36m__getitem__\u001b[0;34m(self, key)\u001b[0m\n\u001b[1;32m   2798\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcolumns\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnlevels\u001b[0m \u001b[0;34m>\u001b[0m \u001b[0;36m1\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2799\u001b[0m                 \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_getitem_multilevel\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2800\u001b[0;31m             \u001b[0mindexer\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcolumns\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2801\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0mis_integer\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mindexer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2802\u001b[0m                 \u001b[0mindexer\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mindexer\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.6/dist-packages/pandas/core/indexes/base.py\u001b[0m in \u001b[0;36mget_loc\u001b[0;34m(self, key, method, tolerance)\u001b[0m\n\u001b[1;32m   2646\u001b[0m                 \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_engine\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2647\u001b[0m             \u001b[0;32mexcept\u001b[0m \u001b[0mKeyError\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2648\u001b[0;31m                 \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_engine\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_maybe_cast_indexer\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2649\u001b[0m         \u001b[0mindexer\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_indexer\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmethod\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mmethod\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtolerance\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mtolerance\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2650\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mindexer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mndim\u001b[0m \u001b[0;34m>\u001b[0m \u001b[0;36m1\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0mindexer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msize\u001b[0m \u001b[0;34m>\u001b[0m \u001b[0;36m1\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/index.pyx\u001b[0m in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/index.pyx\u001b[0m in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/hashtable_class_helper.pxi\u001b[0m in \u001b[0;36mpandas._libs.hashtable.PyObjectHashTable.get_item\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/hashtable_class_helper.pxi\u001b[0m in \u001b[0;36mpandas._libs.hashtable.PyObjectHashTable.get_item\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;31mKeyError\u001b[0m: 'sum'"
+          ]
+        }
+      ]
+    }
+  ]
+}
